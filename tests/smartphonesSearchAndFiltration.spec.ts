@@ -1,7 +1,7 @@
 import { test, expect } from '../pageObjects/fixtures/pagesFixtures';
 
 test('should search for smartphones and apply filters', async ({ page, homePage, categoryPage }) => {
-    await expect(homePage.page, 'Home page is opened').toHaveURL('https://shop.by');
+    await expect(homePage.page, 'Home page is opened').toHaveURL('/');
     await homePage.navigation.openCategory('Смартфоны');
     await expect(categoryPage.categoryTitle, '"Смартфоны" page is opened').toHaveText('Смартфоны');
     await categoryPage.modelFilter.searchByWordsInName('iPhone');

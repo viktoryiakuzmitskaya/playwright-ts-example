@@ -8,7 +8,7 @@ type HomePageFixture = {
 const test = baseTest.extend<HomePageFixture>({
     homePage: async ({ page }, use) => {
         const homePage = new HomePage(page, 'Home Page');
-        await homePage.open('https://shop.by');
+        await homePage.open('/');
         await use(homePage);
     },
 });

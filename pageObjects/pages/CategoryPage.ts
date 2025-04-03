@@ -37,8 +37,7 @@ export default class CategoryPage extends BasePage {
         Logger.info(`Iterating over ${productCards.length} product(s).`);
         for (let i = 0; i < productCards.length; i++) {
             Logger.debug(`Processing product card at index: ${i}`);
-            const productCard = await this.getProductCard(i);
-            await callback(productCard);
+            await callback(productCards[i]);
         }
     }
 
@@ -48,17 +47,12 @@ export default class CategoryPage extends BasePage {
     }
 
     async getProductsPrices(productCards: ProductCard[]): Promise<number[]> {
-        const productCount = productCards.length;
-        const prices: number[] = [];
-        Logger.info(`Extracting prices from ${productCount} product(s).`);
-    
-        for (let i = 0; i < productCount; i++) {
-            Logger.debug(`Processing product card at index: ${i}`);
-            const productCard = await this.getProductCard(i);
-            const productPrice = await productCard.getPrice();
-            prices.push(productPrice);
-        }
-    
+        const prices = await Promise.all(
+            productCards.map(async (productCard, index) => {
+                Logger.debug(`Processing product card at index: ${index}`);
+                return await productCard.getPrice();
+            })
+        );    
         Logger.info(`Extracted prices: ${prices.join(', ')}`);
         return prices;
     }

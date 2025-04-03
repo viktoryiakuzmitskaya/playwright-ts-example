@@ -2,7 +2,7 @@ import { Page } from '@playwright/test';
 import Navigation from '../components/Navigation';
 import Logger from '../../utils/Logger';
 
-export default class BasePage {
+export default abstract class BasePage {
     readonly page: Page;
     readonly name: string;
     readonly navigation: Navigation;

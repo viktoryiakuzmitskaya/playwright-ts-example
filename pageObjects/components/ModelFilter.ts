@@ -29,22 +29,22 @@ export default class ModelFilter {
     }
 
     async searchByPriceRange(from: string, to: string): Promise<void> {
-        await this.fillPriceFromInput(from);
-        await this.fillPriceToInput(to);
-        await this.priceFromInput.press('Tab');
+        await this.typeMinPrice(from);
+        await this.typeMaxPrice(to);
         await this.showProductsButton.click();
         Logger.info('Clicked the "Показать" button');
     }
 
-    async fillPriceFromInput(value: string): Promise<void> {
+    async typeMinPrice(value: string): Promise<void> {
         await this.priceFromInput.scrollIntoViewIfNeeded();
-        await this.priceFromInput.fill(value);
-        Logger.info(`Filling "Цена, р., от" input with value: "${value}"`);
+        await this.priceFromInput.pressSequentially(value);
+        Logger.info(`Typing "Цена, р., от" in the input with value: "${value}"`);
     }
 
-    async fillPriceToInput(value: string): Promise<void> {
-        await this.priceToInput.fill(value);
-        Logger.info(`Filling "Цена, р., до" input with value: "${value}"`);
+    async typeMaxPrice(value: string): Promise<void> {
+        await this.priceFromInput.scrollIntoViewIfNeeded();
+        await this.priceToInput.pressSequentially(value);
+        Logger.info(`Typing "Цена, р., до" in the input with value: "${value}"`);
     }
 
 
